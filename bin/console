@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-use App\Command\HelloCommand;
+use ConsolidatedWitchcraft\BindingEngine\Demo\Command\ProjectCommand;
 use Symfony\Component\Console\Application;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
 $application = new Application('Binding Engine Demo', '0.1.0');
-$application->add(new HelloCommand());
+$application->add(new ProjectCommand());
 $application->run();

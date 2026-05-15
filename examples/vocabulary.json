@@ -1,0 +1,53 @@
+{
+  "identifier": "test-vocabulary",
+  "label": "Test Vocabulary",
+  "version": "0.1.0",
+  "bindingTypes": [
+    {
+      "identifier": "person",
+      "label": "Person",
+      "description": "A person entity.",
+      "allowedPayloadShapes": ["shorthand"],
+      "attributes": []
+    },
+    {
+      "identifier": "place",
+      "label": "Place",
+      "description": "A place entity.",
+      "allowedPayloadShapes": ["shorthand"],
+      "attributes": []
+    },
+    {
+      "identifier": "relationship",
+      "label": "Relationship",
+      "description": "A relationship between two entities.",
+      "allowedPayloadShapes": ["attribute_list"],
+      "attributes": [
+        {
+          "identifier": "type",
+          "label": "Type",
+          "description": "The relationship type.",
+          "valueType": "string",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "identifier": "subject",
+          "label": "Subject",
+          "description": "The subject entity.",
+          "valueType": "string",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "identifier": "object",
+          "label": "Object",
+          "description": "The object entity.",
+          "valueType": "string",
+          "required": true,
+          "repeatable": false
+        }
+      ]
+    }
+  ]
+}
