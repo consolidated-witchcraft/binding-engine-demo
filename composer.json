@@ -34,8 +34,8 @@
         "php": "^8.4",
         "symfony/console": "^7.0",
         "consolidated-witchcraft/binding-engine-parser": ">=0.1.0 <1.0.0",
-        "consolidated-witchcraft/binding-engine-vocabulary": ">=0.1.0 <1.0.0",
-        "consolidated-witchcraft/binding-engine-vocabulary-loader": ">=0.1.0 <1.0.0",
+        "consolidated-witchcraft/binding-engine-vocabulary": ">=0.2.0 <1.0.0",
+        "consolidated-witchcraft/binding-engine-vocabulary-loader": ">=0.2.0 <1.0.0",
         "consolidated-witchcraft/binding-engine-assertions": ">=0.1.0 <1.0.0",
         "consolidated-witchcraft/binding-engine-projection": ">=0.1.0 <1.0.0"
     },
