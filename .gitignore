@@ -50,3 +50,9 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+.phpunit.result.cache
+.phpunit.cache
+.php-cs-fixer.cache
+.idea
+.phpstan

@@ -15,12 +15,14 @@ The purpose of this repository is to:
 - act as a lightweight semantic pipeline testbed
 
 This repository intentionally prioritises:
+
 - clarity
 - determinism
 - provenance visibility
 - explicit orchestration
 
 over:
+
 - framework complexity
 - infrastructure concerns
 - production application architecture
@@ -46,6 +48,7 @@ Serialization
 ```
 
 The resulting output demonstrates:
+
 - semantic extraction
 - provenance preservation
 - deterministic projection
@@ -74,15 +77,9 @@ composer install
 ## Example Markdown Document
 
 ```markdown
-@person[jane-austen](Jane Austen)
+@person[jane-austen](Jane Austen) was an English writer known primarily for her six novels, which implicitly interpret, critique, and comment on the English landed gentry at the end of the 18th century.
 
-@person[george-austen](George Austen)
-
-@relationship[
-    type: parent_of,
-    subject: george-austen,
-    object: jane-austen
-](George Austen was Jane Austen’s father)
+Jane Austen was born on 16 December 1775 in @place[steventon-hampshire](Steventon, Hampshire). Her @relationship[type: parent_of, subject: george-austen, object: jane-austen](father, George Austen), wrote of her arrival in a letter that her mother, @relationship[type: parent_of, subject: cassandra-austen, object: jane-austen](Cassandra), "certainly expected to have been brought to bed a month ago." He added that the newborn infant was "a present plaything for Cassy and a future companion." The winter of 1775-1776 was particularly harsh, and it was not until 5 April that she was baptised at the local church and christened Jane.
 ```
 
 ## Example Vocabulary
@@ -91,12 +88,21 @@ composer install
 {
   "identifier": "test-vocabulary",
   "label": "Test Vocabulary",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "bindingTypes": [
     {
       "identifier": "person",
       "label": "Person",
       "description": "A person entity.",
+      "allowedPayloadShapes": [
+        "shorthand"
+      ],
+      "attributes": []
+    },
+    {
+      "identifier": "place",
+      "label": "Place",
+      "description": "A place entity.",
       "allowedPayloadShapes": [
         "shorthand"
       ],
@@ -116,23 +122,26 @@ composer install
           "description": "The relationship type.",
           "valueType": "string",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "role": "semantic"
         },
         {
           "identifier": "subject",
           "label": "Subject",
           "description": "The subject entity.",
-          "valueType": "string",
+          "valueType": "identifier",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "role": "semantic"
         },
         {
           "identifier": "object",
           "label": "Object",
           "description": "The object entity.",
-          "valueType": "string",
+          "valueType": "identifier",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "role": "semantic"
         }
       ]
     }
@@ -143,7 +152,7 @@ composer install
 ## Run the Demo
 
 ```bash
-php bin/consolie examples/document.md examples/vocabulary.json
+php bin/console binding:project examples/document.md examples/vocabulary.json
 ```
 
 ---
@@ -163,10 +172,10 @@ Example conceptual output:
   },
   {
     "projectionType": "entity",
-    "projectionKey": "entity:person:george-austen",
-    "entityType": "person",
-    "identifier": "george-austen",
-    "label": "George Austen"
+    "projectionKey": "entity:place:steventon-hampshire",
+    "entityType": "place",
+    "identifier": "steventon-hampshire",
+    "label": "Steventon, Hampshire"
   },
   {
     "projectionType": "relationship",
@@ -174,16 +183,67 @@ Example conceptual output:
     "relationshipType": "parent_of",
     "subject": "george-austen",
     "object": "jane-austen",
-    "label": "George Austen was Jane Austen’s father"
+    "label": "father, George Austen"
+  },
+  {
+    "projectionType": "relationship",
+    "projectionKey": "relationship:parent_of:cassandra-austen:jane-austen",
+    "relationshipType": "parent_of",
+    "subject": "cassandra-austen",
+    "object": "jane-austen",
+    "label": "Cassandra"
   }
 ]
 ```
 
 Actual serialized output also includes:
+
 - originating assertion data
 - provenance information
 - source spans
 - vocabulary context
+
+---
+
+# Semantic vs Visibility Metadata
+
+BindingEngine distinguishes between:
+
+- semantic attributes
+- metadata attributes
+- visibility attributes
+- system attributes
+
+Semantic attributes contribute to semantic meaning and projection identity.
+
+Visibility and metadata attributes are preserved through the pipeline without becoming part of semantic graph identity.
+
+For example:
+
+```markdown
+@event[
+    type: battle,
+    occurred_at: reckoning:348-ashmoon-03,
+    revealed_at: 2026-07-18
+](Battle of Thornbridge Holt)
+```
+
+May use:
+
+```json
+{
+  "identifier": "revealed_at",
+  "role": "visibility"
+}
+```
+
+This allows applications to implement:
+- spoiler management
+- campaign reveal systems
+- publication scheduling
+- access control
+
+without contaminating semantic identity or graph structure.
 
 ---
 
@@ -192,6 +252,7 @@ Actual serialized output also includes:
 This repository is intentionally minimal.
 
 It is NOT intended to:
+
 - provide a production application architecture
 - act as a graph database
 - provide a web interface
@@ -201,6 +262,7 @@ It is NOT intended to:
 - merge semantic identities
 
 Its purpose is to demonstrate:
+
 > deterministic semantic pipeline behaviour.
 
 ---
@@ -229,6 +291,7 @@ composer stan
 ```
 
 The repository enforces:
+
 - strict typing
 - deterministic behaviour
 - provenance preservation
@@ -239,12 +302,15 @@ The repository enforces:
 # Design Philosophy
 
 The BindingEngine ecosystem treats authored semantic bindings as:
+
 > historical semantic claims
 
 rather than:
+
 > canonical objective truth
 
 The demo application therefore preserves:
+
 - provenance
 - vocabulary context
 - semantic identity
