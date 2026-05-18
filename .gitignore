@@ -56,3 +56,5 @@
 .php-cs-fixer.cache
 .idea
 .phpstan
+.phpunit.cache
+.php-cs-fixer.cache

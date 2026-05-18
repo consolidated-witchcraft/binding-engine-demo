@@ -1,7 +1,7 @@
 {
   "identifier": "test-vocabulary",
   "label": "Test Vocabulary",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "bindingTypes": [
     {
       "identifier": "person",
@@ -18,6 +18,59 @@
       "attributes": []
     },
     {
+      "identifier": "event",
+      "label": "Event",
+      "description": "An event or occurrence.",
+      "allowedPayloadShapes": ["attribute_list"],
+      "attributes": [
+        {
+          "identifier": "type",
+          "label": "Type",
+          "description": "The event type.",
+          "valueType": "string",
+          "required": true,
+          "repeatable": false,
+          "role": "semantic"
+        },
+        {
+          "identifier": "subject",
+          "label": "Subject",
+          "description": "The primary subject of the event.",
+          "valueType": "identifier",
+          "required": true,
+          "repeatable": false,
+          "role": "semantic"
+        },
+        {
+          "identifier": "occurred-at",
+          "label": "Occurred At",
+          "description": "The domain timeline date or chronology token for the event.",
+          "valueType": "string",
+          "required": false,
+          "repeatable": false,
+          "role": "semantic"
+        },
+        {
+          "identifier": "location",
+          "label": "Location",
+          "description": "The place where the event occurred.",
+          "valueType": "identifier",
+          "required": false,
+          "repeatable": false,
+          "role": "semantic"
+        },
+        {
+          "identifier": "revealed-at",
+          "label": "Revealed At",
+          "description": "The real-world date from which this event may be shown to non-privileged users.",
+          "valueType": "string",
+          "required": false,
+          "repeatable": false,
+          "role": "visibility"
+        }
+      ]
+    },
+    {
       "identifier": "relationship",
       "label": "Relationship",
       "description": "A relationship between two entities.",
@@ -29,23 +82,26 @@
           "description": "The relationship type.",
           "valueType": "string",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "role": "semantic"
         },
         {
           "identifier": "subject",
           "label": "Subject",
           "description": "The subject entity.",
-          "valueType": "string",
+          "valueType": "identifier",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "role": "semantic"
         },
         {
           "identifier": "object",
           "label": "Object",
           "description": "The object entity.",
-          "valueType": "string",
+          "valueType": "identifier",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "role": "semantic"
         }
       ]
     }
